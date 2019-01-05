@@ -6,6 +6,5 @@ class Smth():
         self.another = Another()
 
     def add_to_value(self, b):
-        print(__file__)
         self.value += 10
         return self.value
