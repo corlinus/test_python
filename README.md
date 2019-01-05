@@ -1,3 +1,3 @@
 # Testing python application with pytest
 
-run `pytest` to start tests
+run `ENV=test python3 -m unittest tests/*py` to start tests
