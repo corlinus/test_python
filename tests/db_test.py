@@ -7,7 +7,10 @@ class TestDB(unittest.TestCase):
         self.assertIsInstance(self.subject(), DB)
 
     def test_file_name(self):
-        self.assertTrue(str.endswith(self.subject().file_name(), 'db/test.db'))
+        self.assertTrue(str.endswith(
+            self.subject().file_name(),
+            os.path.join('db', 'test.db'))
+        )
 
     def test_execute_and_fetch(self):
         query = "SELECT name FROM sqlite_master WHERE name='some_table'"
