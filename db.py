@@ -6,14 +6,14 @@ class DB():
         self.connection = sqlite3.connect(self.file_name())
         self.cursor = self.connection.cursor()
 
-    def execute(self, query):
-        return self.cursor.execute(query)
-
-    def execute_and_fetch(self, query):
-        return self.execute(query).fetchall()
-
     def __del__(self):
         self.connection.close()
+
+    def execute(self, query, *query_args):
+        return self.cursor.execute(query, query_args)
+
+    def execute_and_fetch(self, query, *query_args):
+        return self.execute(query, *query_args).fetchall()
 
     def file_name(self):
         env = os.getenv('ENV', 'development')
