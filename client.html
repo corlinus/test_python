@@ -39,7 +39,7 @@
           if(text == ""){
             return;
           }
-          socket.send(text);
+          socket.send(JSON.stringify({msg: text}));
           $txt.val("");
         });
 
@@ -69,10 +69,26 @@
           console.log("invalid socket");
         }
 
-        function showServerResponse(txt){
-          var p = document.createElement('p');
-          p.innerHTML = txt;
-          document.getElementById('output').appendChild(p);
+        function showServerResponse(data){
+          var div = document.createElement('div');
+          var html;
+          msg = JSON.parse(data);
+          switch(msg['type']) {
+            case 'auth_request':
+              html = 'Enter your name'
+              break
+            case 'entered':
+              html = '<em><strong>' + msg['name'] + '</strong> entered the chat.</em>'
+              break
+            case 'left':
+              html = '<em><strong>' + msg['name'] + '</strong> left the chat.</em>'
+              break
+            case 'msg':
+              html = '<strong>' + msg['name'] + '</strong>: ' + msg['text']
+              break
+          }
+          div.innerHTML = html
+          document.getElementById('output').appendChild(div);
         }
       }
     });
